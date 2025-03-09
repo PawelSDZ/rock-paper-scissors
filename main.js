@@ -52,7 +52,7 @@ function playRound (humanChoice, computerChoice) {
         winner();
     }
     else {
-        resultsDiv.innerHTML += "You lose " + computerChoice + " beats " + humanChoice + "<br>";
+        resultsDiv.innerHTML += "You lose! " + computerChoice + " beats " + humanChoice + "<br>";
         computerScore++;
         resultsDiv.innerHTML += "The current score is " + humanScore + " for you and " + computerScore + " for the computer. <br>";
         winner();
