@@ -33,8 +33,6 @@ let computerScore = 0;
 // The function clears the previous result each round.
 
 function playRound (humanChoice, computerChoice) {
-    // We make case-insensitive the humanChoice and capitalize the first letter.
-    humanChoice = humanChoice.charAt(0).toUpperCase() + humanChoice.slice(1).toLowerCase();
     resultsDiv.innerHTML = ""
     if (humanChoice === computerChoice) {
         resultsDiv.innerHTML += "It's a draw! <br>";
@@ -98,13 +96,13 @@ let buttons = document.querySelectorAll("button");
 buttons.forEach(function(button){
     button.addEventListener("click", function(){
         if (button.classList.contains("paper")){
-            playRound("paper", getComputerChoice());
+            playRound("Paper", getComputerChoice());
         }
         if (button.classList.contains("rock")){
-            playRound("rock",getComputerChoice());
+            playRound("Rock",getComputerChoice());
         }
         if (button.classList.contains("scissors")){
-            playRound("scissors",getComputerChoice());
+            playRound("Scissors",getComputerChoice());
         }
     })
 })
