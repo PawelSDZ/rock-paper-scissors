@@ -37,7 +37,6 @@ function playRound (humanChoice, computerChoice) {
     if (humanChoice === computerChoice) {
         resultsDiv.innerHTML += "It's a draw! <br>";
         resultsDiv.innerHTML += "The current score is " + humanScore + " for you and " + computerScore + " for the computer. <br>";
-        winner();
     }
     else if (
         (humanChoice === "Scissors" && computerChoice === "Paper") ||
@@ -47,14 +46,13 @@ function playRound (humanChoice, computerChoice) {
         resultsDiv.innerHTML += "You win! " + humanChoice + " beats " + computerChoice + "<br>";
         humanScore ++;
         resultsDiv.innerHTML += "The current score is " + humanScore + " for you and " + computerScore + " for the computer. <br>";
-        winner();
     }
     else {
         resultsDiv.innerHTML += "You lose! " + computerChoice + " beats " + humanChoice + "<br>";
         computerScore++;
-        resultsDiv.innerHTML += "The current score is " + humanScore + " for you and " + computerScore + " for the computer. <br>";
-        winner();
+        resultsDiv.innerHTML += "The current score is " + humanScore + " for you and " + computerScore + " for the computer. <br>"; 
     }
+    winner();
 }
 
 // Make the playRound function play 5 times.
@@ -75,17 +73,17 @@ function playGame() {
 // Once one of the scores reaches 5, it displays the winner message and resets the scores.
 
 function winner () {
-    while (humanScore < 5 && computerScore <5) {
-        resultsDiv.innerHTML += "Keep playing, lets see who reaches 5 first!";
-        playRound();
-    }
-    if (humanScore === 5){
+    if (humanScore === 5) {
         resultsDiv.innerHTML += "The game has finished! <br> You are the winner!";
-    } else {
+        humanScore = 0;
+        computerScore = 0;
+    } else if (computerScore === 5) {
         resultsDiv.innerHTML += "The game has finished! <br> The computer won!";
+        humanScore = 0;
+        computerScore = 0;
+    } else {
+        resultsDiv.innerHTML += "Keep playing, let's see who reaches 5 first!";
     }
-    humanScore = 0;
-    computerScore = 0;
 }
 
 // Making the game playable via an UI.
