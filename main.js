@@ -69,7 +69,7 @@ function playGame() {
 }
 
 // This function is called each round with playRound() and acts as a substitute for playGame(), but adapted to the UI version of the project.
-// It tells the user to keep playing if the humanScore or computerScore is not yet 5, and calls playRound() again to continue the game.
+// It tells the user to keep playing if the humanScore or computerScore is not yet 5.
 // Once one of the scores reaches 5, it displays the winner message and resets the scores.
 
 function winner () {
