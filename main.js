@@ -28,33 +28,39 @@ let computerScore = 0;
 
 // Function that compares the values from the input and the random computer choice.
 // Then it adds the score to the hum or computed based on who wins and displays a text with the winner.
+// Now, the function calls winner() which is defined below.
+// The function displays the result of the round and the current score in a div.
+// The function clears the previous result each round.
 
 function playRound (humanChoice, computerChoice) {
     // We make case-insensitive the humanChoice and capitalize the first letter.
-
     humanChoice = humanChoice.charAt(0).toUpperCase() + humanChoice.slice(1).toLowerCase();
-    
+    resultsDiv.innerHTML = ""
     if (humanChoice === computerChoice) {
-        console.log("It's a draw!");
-        console.log("The current score is " + humanScore + " for you and " + computerScore + " for the computer.");
+        resultsDiv.innerHTML += "It's a draw! <br>";
+        resultsDiv.innerHTML += "The current score is " + humanScore + " for you and " + computerScore + " for the computer. <br>";
+        winner();
     }
     else if (
         (humanChoice === "Scissors" && computerChoice === "Paper") ||
         (humanChoice === "Paper" && computerChoice === "Rock") ||
         (humanChoice === "Rock" && computerChoice === "Scissors")
     ) {
-        console.log("You win! " + humanChoice + " beats " + computerChoice);
+        resultsDiv.innerHTML += "You win! " + humanChoice + " beats " + computerChoice + "<br>";
         humanScore ++;
-        console.log("The current score is " + humanScore + " for you and " + computerScore + " for the computer.");
+        resultsDiv.innerHTML += "The current score is " + humanScore + " for you and " + computerScore + " for the computer. <br>";
+        winner();
     }
     else {
-        console.log("You lose " + computerChoice + " beats " + humanChoice);
+        resultsDiv.innerHTML += "You lose " + computerChoice + " beats " + humanChoice + "<br>";
         computerScore++;
-        console.log("The current score is " + humanScore + " for you and " + computerScore + " for the computer.");
+        resultsDiv.innerHTML += "The current score is " + humanScore + " for you and " + computerScore + " for the computer. <br>";
+        winner();
     }
 }
 
 // Make the playRound function play 5 times.
+// Not needed in the UI version of the project, but not commented out or deleted anyway because it's never called.
 
 function playGame() {
     let i = 0;
@@ -66,4 +72,39 @@ function playGame() {
     }
 }
 
-playGame();
+// This function is called each round with playRound() and acts as a substitute for playGame(), but adapted to the UI version of the project.
+// It tells the user to keep playing if the humanScore or computerScore is not yet 5, and calls playRound() again to continue the game.
+// Once one of the scores reaches 5, it displays the winner message and resets the scores.
+
+function winner () {
+    while (humanScore < 5 && computerScore <5) {
+        resultsDiv.innerHTML += "Keep playing, lets see who reaches 5 first!";
+        playRound();
+    }
+    if (humanScore === 5){
+        resultsDiv.innerHTML += "The game has finished! <br> You are the winner!";
+    } else {
+        resultsDiv.innerHTML += "The game has finished! <br> The computer won!";
+    }
+    humanScore = 0;
+    computerScore = 0;
+}
+
+// Making the game playable via an UI.
+// Each button will call playRound() with the value displayed on the button and a random computer choice obtained using getComputerChoice().
+
+let resultsDiv = document.querySelector("div");
+let buttons = document.querySelectorAll("button");
+buttons.forEach(function(button){
+    button.addEventListener("click", function(){
+        if (button.classList.contains("paper")){
+            playRound("paper", getComputerChoice());
+        }
+        if (button.classList.contains("rock")){
+            playRound("rock",getComputerChoice());
+        }
+        if (button.classList.contains("scissors")){
+            playRound("scissors",getComputerChoice());
+        }
+    })
+})
